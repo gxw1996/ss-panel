@@ -50,30 +50,69 @@
                                     <ul class="nav nav-stacked">
                                         <li><a href="./node/{$node->id}">节点地址 <span
                                                         class="pull-right badge bg-blue">{$node->server}</span></a></li>
-                                        <li><a href="./node/{$node->id}">连接端口 <span
-                                                        class="pull-right badge bg-aqua">{$user->port}</span></a></li>
-                                        <li><a href="./node/{$node->id}">加密方式 <span
-                                                        class="pull-right badge bg-green">{if $node->custom_method == 1} {$user->method} {else} {$node->method} {/if}</span></a>
-                                        </li>
-                                        <li><a href="./node/{$node->id}">负载: <span
-                                                        class="pull-right badge bg-green">{$node->getNodeLoad()}</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6">
-                                    <ul class="nav nav-stacked">
                                         <li><a href="./node/{$node->id}">流量比例 <span
                                                         class="pull-right badge bg-blue">{$node->traffic_rate}</span></a>
                                         </li>
                                         <li><a href="./node/{$node->id}">在线人数 <span
                                                         class="pull-right badge bg-aqua">{$node->getOnlineUserCount()}</span></a>
                                         </li>
-                                        <li><a href="./node/{$node->id}">产生流量 <span
-                                                        class="pull-right badge bg-green">{$node->getTrafficFromLogs()}</span></a>
-                                        </li>
-                                        <li><a href="./node/{$node->id}">Uptime: <span
-                                                        class="pull-right badge bg-green">{$node->getNodeUptime()}</span></a>
-                                        </li>
+                                        {if $node->ss + $node->ssr + $node->v2ray >= 1}
+                                            <li><a href="./node/{$node->id}">产生流量 <span
+                                                            class="pull-right badge bg-green">{$node->getTrafficFromLogs()}</span></a>
+                                            </li>
+                                        {/if}
+                                        {if $node->ss + $node->ssr + $node->v2ray >= 2}
+                                            <li><a href="./node/{$node->id}">负载: <span
+                                                            class="pull-right badge bg-green">{$node->getNodeLoad()}</span></a>
+                                            </li>
+                                        {/if}
+                                        {if $node->ss + $node->ssr + $node->v2ray >= 3}
+                                            <li><a href="./node/{$node->id}">Uptime: <span
+                                                            class="pull-right badge bg-green">{$node->getNodeUptime()}</span></a>
+                                            </li>
+                                        {/if}
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="nav nav-stacked">
+                                        {if $node->ss}
+                                            <li><a href="./node/{$node->id}">连接端口 <span
+                                                            class="pull-right badge bg-aqua">{$user->port}</span></a></li>
+                                            <li><a href="./node/{$node->id}">加密方式 <span
+                                                            class="pull-right badge bg-green">{if $node->custom_method == 1} {$user->method} {else} {$node->method} {/if}</span></a>
+                                            </li>
+                                        {/if}
+                                        {if $node->ssr}
+                                            <li><a href="./node/{$node->id}">连接协议: <span
+                                                            class="pull-right badge bg-maroon">{if $node->custom_rss == 1 && $node->add_port_only == 0} {$user->protocol} {else} {$node->protocol} {/if}</span></a>
+                                            </li>
+                                            <li><a href="./node/{$node->id}">连接端口: <span
+                                                            class="pull-right badge bg-maroon">{if $node->add_port_only == 0} {$user->port} {else} {$node->ssr_port} {/if}</span></a>
+                                            </li>
+                                        {/if}
+                                        {if $node->v2ray}
+                                            <li><a href="./node/{$node->id}">连接端口: <span
+                                                            class="pull-right badge bg-fuchsia">{$node->v2ray_port}</span></a>
+                                            </li>
+                                            <li><a href="./node/{$node->id}">V2Ray UUID: <span
+                                                            class="pull-right badge bg-fuchsia">{$user->v2ray_uuid}</span></a>
+                                            </li>
+                                        {/if}
+                                        {if $node->ss + $node->ssr + $node->v2ray < 1}
+                                            <li><a href="./node/{$node->id}">产生流量 <span
+                                                            class="pull-right badge bg-green">{$node->getTrafficFromLogs()}</span></a>
+                                            </li>
+                                        {/if}
+                                        {if $node->ss + $node->ssr + $node->v2ray < 2}
+                                            <li><a href="./node/{$node->id}">负载: <span
+                                                            class="pull-right badge bg-green">{$node->getNodeLoad()}</span></a>
+                                            </li>
+                                        {/if}
+                                        {if $node->ss + $node->ssr + $node->v2ray < 3}
+                                            <li><a href="./node/{$node->id}">Uptime: <span
+                                                            class="pull-right badge bg-green">{$node->getNodeUptime()}</span></a>
+                                            </li>
+                                        {/if}
                                     </ul>
                                 </div>
                             </div>
